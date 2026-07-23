@@ -3,128 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GM-Copilot Studios | TTRPG B2B Automation</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>GM-Copilot Studios | Deterministic VTT Ingestion</title>
     <style>
-        body { background-color: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; }
-        .accent { color: #38bdf8; }
+        /* 
+         * [UI NODE: Global Styles & Terminal Variables]
+         * Defines the #0d1117 dark mode aesthetic and structural padding.
+         */
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-hover: #3182ce;
+            --border-color: #30363d;
+            --terminal-green: #238636;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3, h4 {
+            color: #ffffff;
+            margin-top: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--terminal-green);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            border: 1px solid rgba(240, 246, 252, 0.1);
+            transition: background-color 0.2s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2ea043;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background-color: rgba(88, 166, 255, 0.1);
+        }
+
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* 
+         * [UI NODE: 1. Hero Header]
+         */
+        .hero {
+            text-align: center;
+            padding: 120px 20px 80px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* 
+         * [UI NODE: 2. The "3-Minute Pipeline" Timeline Graphic]
+         */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .timeline-step {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            position: relative;
+        }
+
+        .timeline-time {
+            font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            background: rgba(88, 166, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        /* 
+         * [UI NODE: 3. The "3 Non-Negotiable Guarantees" (Trust Section)]
+         */
+        .guarantees {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .guarantee-card {
+            padding: 30px;
+            border-left: 4px solid var(--accent);
+            background-color: var(--card-bg);
+        }
+
+        /* 
+         * [UI NODE: 4. Volume-Based Tiered Pricing Cards]
+         */
+        .pricing {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .pricing-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 40px 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card.popular {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(88, 166, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 20px 0;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: normal;
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px 0;
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            margin-bottom: 15px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--terminal-green);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <header class="max-w-5xl mx-auto px-6 py-24 text-center">
-        <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6">
-            Stop Manually Tracing VTT Walls. <br>
-            <span class="accent">Automate your TTRPG Archives.</span>
-        </h1>
-        <p class="text-xl text-slate-400 mb-10 max-w-3xl mx-auto">
-            The Masterwork Engine™ uses deterministic spatial AI to instantly forge Roll20 and Foundry JSON payloads from static maps and legacy PDFs. No human touch. No OCR loss. Zero hallucinations.
-        </p>
-        <a href="mailto:caleb@delversgrimoire.com?subject=Free 1-Page Extraction Sample" class="bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 px-8 rounded-lg shadow-lg text-lg transition duration-300">
-            Request a Free 1-Page Extraction Sample
-        </a>
+    <!-- [SWARM NODE: Hero Section] -->
+    <header class="hero">
+        <div class="container">
+            <h1>Eliminate 95% of Manual VTT Data Entry</h1>
+            <p>Deterministic, Zero-Hallucination Ingestion Pipeline for TTRPG Publishers & VTT Developers.</p>
+            <a href="https://linkedin.com/in/YOUR_LINKEDIN_HANDLE" class="btn">Book a $99 5-Page PDF Audit</a>
+        </div>
     </header>
 
-    <section class="max-w-6xl mx-auto px-6 mb-24">
-        <div class="grid md:grid-cols-2 gap-8">
-            
-            <div class="bg-slate-800 rounded-xl p-3 border border-slate-700 shadow-2xl flex flex-col">
-                <h4 class="text-sky-400 font-bold mb-3 text-center tracking-widest text-sm uppercase">1. Autonomous Spatial Graph</h4>
-                <div class="w-full bg-black rounded-lg overflow-hidden border border-slate-900 shadow-inner flex-grow">
-                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                        <source src="cats_eye_small.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+    <!-- [SWARM NODE: Timeline Pipeline Graphic] -->
+    <section id="pipeline">
+        <div class="container">
+            <div class="section-header">
+                <h2>The 3-Minute Pipeline</h2>
+                <p style="color: var(--text-muted);">How legacy rulebooks become verified JSON architectures.</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-step">
+                    <span class="timeline-time">0:00 — Upload</span>
+                    <h3>Drop PDF</h3>
+                    <p>Drop 5-page rulebook PDF into the secure ingestion vault.</p>
                 </div>
-                <p class="text-slate-400 text-xs text-center mt-3">Converting raw maps into VTT Dynamic Lighting</p>
-            </div>
-
-            <div class="bg-slate-800 rounded-xl p-3 border border-slate-700 shadow-2xl flex flex-col">
-                <h4 class="text-emerald-400 font-bold mb-3 text-center tracking-widest text-sm uppercase">2. Lean 4 Verification Kernel</h4>
-                <div class="w-full bg-black rounded-lg overflow-hidden border border-slate-900 shadow-inner flex-grow">
-                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                        <source src="lean_small.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                <div class="timeline-step">
+                    <span class="timeline-time">0:15 — Spatial Mapping</span>
+                    <h3>OpenCV Vision</h3>
+                    <p>OpenCV vision engine isolates bounding boxes, multi-column flows, and grid topologies.</p>
                 </div>
-                <p class="text-slate-400 text-xs text-center mt-3">Cryptographically proving zero hallucinations</p>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="max-w-5xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-12 border-t border-slate-800">
-        <div>
-            <h3 class="text-2xl font-bold mb-4 text-red-400">The Problem: Manual Bottlenecks</h3>
-            <p class="text-slate-400 leading-relaxed">
-                Converting a legacy TTRPG module into a VTT-ready format requires hundreds of hours of manual data entry. Your team is forced to click, drag, and snap dynamic lighting vectors by hand. It doesn't scale, and it eats your margins.
-            </p>
-        </div>
-        <div>
-            <h3 class="text-2xl font-bold mb-4 text-emerald-400">The Solution: Deterministic Scale</h3>
-            <p class="text-slate-400 leading-relaxed">
-                GM-Copilot Studios industrializes the process. Our Cartographer's Eye architecture mathematically maps tactical geometry, isolates GM-layer hazards, and compiles the exact SVG path arrays required by Roll20—in seconds.
-            </p>
-        </div>
-    </section>
-
-    <section class="max-w-5xl mx-auto px-6 py-12 mb-16 text-center bg-slate-900 border border-slate-700 rounded-xl shadow-2xl">
-        <h2 class="text-3xl font-bold text-sky-400 mb-6">Verified Production Proof</h2>
-        <p class="text-slate-300 text-lg max-w-3xl mx-auto mb-8">
-            Do not trust marketing copy. Inspect the exact structural output quality of the Masterwork Engine™. 
-            Our autonomous pipeline has successfully processed rulebooks, hazard anchors, and spatial maps for multiple legacy systems with 100% mechanical integrity.
-        </p>
-        <a href="https://gm-copilot-studios.itch.io/" target="_blank" class="inline-block bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-8 rounded-lg shadow-lg text-lg transition duration-300">
-            INSPECT RAW JSON VTT PAYLOADS
-        </a>
-    </section>
-
-    <section class="max-w-6xl mx-auto px-6 py-12 border-t border-slate-800">
-        <h2 class="text-3xl font-bold text-center mb-16 pt-12">Enterprise Infrastructure Pricing</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-            
-            <div class="bg-slate-800 border border-slate-700 rounded-xl p-8 flex flex-col">
-                <h3 class="text-xl font-bold mb-2">The Pilot Extraction</h3>
-                <p class="text-slate-400 mb-6 flex-grow">Full VTT digitization of a single standard campaign module.</p>
-                <div class="text-3xl font-bold mb-6">$800 <span class="text-sm text-slate-500 font-normal">/ flat</span></div>
-                <ul class="text-slate-300 text-sm space-y-3 mb-8">
-                    <li>✓ Roll20/Foundry JSON outputs</li>
-                    <li>✓ Auto-generated dynamic lighting</li>
-                    <li>✓ GM-layer hazard anchors</li>
-                </ul>
-            </div>
-
-            <div class="bg-slate-800 border border-sky-500 rounded-xl p-8 flex flex-col relative transform scale-105 shadow-2xl shadow-sky-900/20">
-                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-500 text-xs font-bold px-3 py-1 rounded-full text-white">
-                    MOST POPULAR
+                <div class="timeline-step">
+                    <span class="timeline-time">0:45 — Verification</span>
+                    <h3>Formal Logic Gate</h3>
+                    <p>Pydantic schemas and math gates validate stat blocks, action economies, and traits.</p>
                 </div>
-                <h3 class="text-xl font-bold mb-2">The Archive Factory</h3>
-                <p class="text-slate-400 mb-6 flex-grow">End-to-end automation of your entire legacy back-catalog.</p>
-                <div class="text-3xl font-bold mb-6">Custom Quoted</div>
-                <ul class="text-slate-300 text-sm space-y-3 mb-8">
-                    <li>✓ Priority batch processing</li>
-                    <li>✓ Dedicated Vault storage</li>
-                    <li>✓ Zero OCR loss guarantee</li>
-                </ul>
+                <div class="timeline-step">
+                    <span class="timeline-time">1:30 — VTT Delivery</span>
+                    <h3>Payload Ready</h3>
+                    <p>Download 100% verified Foundry VTT and Roll20 JSON.</p>
+                </div>
             </div>
-
-            <div class="bg-slate-800 border border-slate-700 rounded-xl p-8 flex flex-col">
-                <h3 class="text-xl font-bold mb-2">Enterprise API</h3>
-                <p class="text-slate-400 mb-6 flex-grow">Direct integration of the Masterwork Engine into your dev pipeline.</p>
-                <div class="text-3xl font-bold mb-6">$1,500 <span class="text-sm text-slate-500 font-normal">/ mo</span></div>
-                <ul class="text-slate-300 text-sm space-y-3 mb-8">
-                    <li>✓ Secure endpoint access</li>
-                    <li>✓ $0.10 per spatial extraction</li>
-                    <li>✓ 24/7 Engine Uptime</li>
-                </ul>
-            </div>
-
         </div>
     </section>
 
-    <footer class="text-center py-12 border-t border-slate-800 text-slate-500 text-sm">
-        <p>GM-Copilot Studios. Engineering the Future of TTRPGs.</p>
-    </footer>
+    <!-- [SWARM NODE: Trust & Guarantees] -->
+    <section id="guarantees">
+        <div class="container">
+            <div class="section-header">
+                <h2>3 Non-Negotiable Guarantees</h2>
+            </div>
+            <div class="guarantees">
+                <div class="guarantee-card">
+                    <h3>Zero Generative Guesswork</h3>
+                    <p>OpenCV spatial gates enforce exact grid coordinates and stat invariants—no AI hallucinations.</p>
+                </div>
+                <div class="guarantee-card">
+                    <h3>Zero Layout Distortion</h3>
+                    <p>Multi-column flows, complex trait tags, and spell matrices are isolated without formatting text-wrap bugs.</p>
+                </div>
+                <div class="guarantee-card">
+                    <h3>Zero IP Risk</h3>
+                    <p>Fully stateless architecture—your backlist PDFs are processed in-memory and immediately purged via strict FinOps protocols.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [SWARM NODE: Volume-Based Tiered Pricing] -->
+    <section id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>B2B Conversion Tiers</h2>
+                <p style="color: var(--text-muted);">From structural audits to full catalog ingestion.</p>
+            </div>
+            <div class="pricing">
+                
+                <div class="pricing-card">
+                    <h3>Indie Audit</h3>
+                    <div class="price">$99 <span>One-Time</span></div>
+                    <ul class="pricing-features">
+                        <li>5-page PDF structural audit</li>
+                        <li>Sample Foundry JSON export</li>
+                        <li>Sample Roll20 JSON export</li>
+                        <li>Layout vulnerability report</li>
+                    </ul>
+                    <a href="https://linkedin.com/in/YOUR_LINKEDIN_HANDLE" class="btn btn-outline" style="width: 100%; box-sizing: border-box;">Request Audit</a>
+                </div>
+
+                <div class="pricing-card popular">
+                    <h3>Publisher Pass</h3>
+                    <div class="price">$299 <span>/mo</span></div>
+                    <ul class="pricing-features">
+                        <li>Up to 250 rulebook pages monthly</li>
+                        <li>Full translation & routing</li>
+                        <li>Priority ingestion queue</li>
+                        <li>Zero-cost Redis FinOps caching</li>
+                    </ul>
+                    <a href="https://linkedin.com/in/YOUR_LINKEDIN_HANDLE" class="btn" style="width: 100%; box-sizing: border-box;">Start Publisher Tier</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Enterprise Studio</h3>
+                    <div class="price">$999 <span>/mo</span></div>
+                    <ul class="pricing-features">
+                        <li>Unlimited catalog ingestion</li>
+                        <li>Custom Lean 4 verification rules</li>
+                        <li>Direct Azure VNet deployment</li>
+                        <li>Stateless UI architecture setup</li>
+                    </ul>
+                    <a href="https://linkedin.com/in/YOUR_LINKEDIN_HANDLE" class="btn btn-outline" style="width: 100%; box-sizing: border-box;">Contact Architecture Team</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
 </body>
 </html>
