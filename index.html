@@ -79,11 +79,40 @@
         }
 
         /*
+         * [UI NODE: 0. Navigation Bar]
+         */
+        .navbar {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-brand span {
+            color: var(--accent);
+        }
+
+        /*
          * [UI NODE: 1. Hero Header]
          */
         .hero {
             text-align: center;
-            padding: 120px 20px 80px;
+            padding: 100px 20px 80px;
         }
 
         .hero h1 {
@@ -213,6 +242,14 @@
     </style>
 </head>
 <body>
+
+    <!-- [SWARM NODE: Navigation Bar] -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">GM-Copilot <span>Studios</span></div>
+            <a href="#contact" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.9rem;">Contact Team</a>
+        </div>
+    </nav>
 
     <!-- [SWARM NODE: Hero Section] -->
     <header class="hero">
