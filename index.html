@@ -125,8 +125,15 @@
         .hero p {
             font-size: 1.25rem;
             color: var(--text-muted);
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         /*
@@ -179,7 +186,7 @@
          */
         .pricing {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
             margin-top: 50px;
         }
@@ -189,7 +196,7 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 40px 30px;
-            text-align: center;
+            text-align: left;
             display: flex;
             flex-direction: column;
         }
@@ -204,13 +211,14 @@
             font-size: 2.5rem;
             font-weight: 700;
             color: #ffffff;
-            margin: 20px 0;
+            margin: 15px 0 5px;
         }
 
-        .price span {
-            font-size: 1rem;
-            color: var(--text-muted);
-            font-weight: normal;
+        .price-subtext {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, monospace;
+            margin-bottom: 20px;
         }
 
         .pricing-features {
@@ -225,6 +233,7 @@
             margin-bottom: 15px;
             padding-left: 24px;
             position: relative;
+            font-size: 0.95rem;
         }
 
         .pricing-features li::before {
@@ -238,6 +247,30 @@
         .section-header {
             text-align: center;
             margin-bottom: 50px;
+        }
+
+        /*
+         * [UI NODE: 5. Enterprise FAQ]
+         */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+        }
+        
+        .faq-item h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
         }
     </style>
 </head>
@@ -254,9 +287,12 @@
     <!-- [SWARM NODE: Hero Section] -->
     <header class="hero">
         <div class="container">
-            <h1>Eliminate 95% of Manual VTT Data Entry</h1>
-            <p>Deterministic, Zero-Hallucination Ingestion Pipeline for TTRPG Publishers & VTT Developers.</p>
-            <a href="https://buy.stripe.com/4gM14neYObR7bKFh1b0kE00" class="btn" style="font-size: 1.2em; padding: 15px 30px;">Book a $99 5-Page PDF Audit</a>
+            <h1>Zero-Hallucination VTT Ingestion for TTRPG Publishers</h1>
+            <p>Turn multi-column PDF layouts into perfect Foundry VTT & Roll20 JSON in minutes. Powered by OpenCV Spatial Mapping & Lean 4 Formal Logic. No probabilistic AI guesses.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn" style="font-size: 1.2em; padding: 15px 30px;">🛠️ Get a Free 1-Page Audit</a>
+                <a href="#pricing" class="btn btn-outline" style="font-size: 1.2em; padding: 15px 30px;">📊 View Volume Pricing</a>
+            </div>
         </div>
     </header>
 
@@ -271,7 +307,7 @@
                 <div class="timeline-step">
                     <span class="timeline-time">0:00 — Upload</span>
                     <h3>Drop PDF</h3>
-                    <p>Drop 5-page rulebook PDF into the secure ingestion vault.</p>
+                    <p>Drop your rulebook PDF into the secure Azure ingestion vault.</p>
                 </div>
                 <div class="timeline-step">
                     <span class="timeline-time">0:15 — Spatial Mapping</span>
@@ -281,12 +317,12 @@
                 <div class="timeline-step">
                     <span class="timeline-time">0:45 — Verification</span>
                     <h3>Formal Logic Gate</h3>
-                    <p>Pydantic schemas and math gates validate stat blocks, action economies, and traits.</p>
+                    <p>Pydantic schemas and Lean 4 math gates validate stat blocks, action economies, and traits.</p>
                 </div>
                 <div class="timeline-step">
                     <span class="timeline-time">1:30 — VTT Delivery</span>
                     <h3>Payload Ready</h3>
-                    <p>Download 100% verified Foundry VTT and Roll20 JSON.</p>
+                    <p>Download 100% verified Foundry VTT and Roll20 JSON payloads.</p>
                 </div>
             </div>
         </div>
@@ -381,53 +417,105 @@
     <section id="pricing">
         <div class="container">
             <div class="section-header">
-                <h2>B2B Conversion Tiers</h2>
-                <p style="color: var(--text-muted);">From structural audits to full catalog ingestion.</p>
+                <h2>Volume Conversion Tiers</h2>
+                <p style="color: var(--text-muted);">From indie zines to full enterprise backlist ingestion. Flat project rates.</p>
             </div>
             <div class="pricing">
                 
-                <!-- TIER 1: The Pilot Extraction -->
+                <!-- TIER 1: Zine Pack -->
+                <div class="pricing-card">
+                    <h3>Indie Zine Pack</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Best for: Itch.io creators, short modules, pamphlets.</p>
+                    <div class="price">$79</div>
+                    <div class="price-subtext">Up to 30 Pages (~$2.63/pg)</div>
+                    <ul class="pricing-features">
+                        <li>24-Hour Turnaround</li>
+                        <li>Foundry VTT JSON export</li>
+                        <li>Roll20 JSON export</li>
+                        <li>Stat block & item verification</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%; box-sizing: border-box;">Start Zine Project</a>
+                </div>
+
+                <!-- TIER 2: Core Rulebook -->
                 <div class="pricing-card popular">
-                    <h3>The Pilot Extraction</h3>
-                    <p>Mathematical proof of our deterministic layout mapping on a sample of your rulebook.</p>
-                    <div class="price">$99 <span>One-Time</span></div>
+                    <h3>Core Rulebook Pack</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Best for: Standard setting guides, core systems, long adventures.</p>
+                    <div class="price">$229</div>
+                    <div class="price-subtext">Up to 150 Pages (~$1.52/pg)</div>
                     <ul class="pricing-features">
-                        <li>5-page PDF structural audit</li>
-                        <li>Sample Foundry JSON export</li>
-                        <li>Sample Roll20 JSON export</li>
-                        <li>Layout vulnerability report</li>
+                        <li>48-Hour Turnaround</li>
+                        <li>Custom Actor Schema Mapping</li>
+                        <li>Full layout & table extraction</li>
+                        <li>Automated action economies</li>
                     </ul>
-                    <a href="https://buy.stripe.com/4gM14neYObR7bKFh1b0kE00" class="btn" style="width: 100%; box-sizing: border-box;">Start Pilot Extraction</a>
+                    <a href="#contact" class="btn" style="width: 100%; box-sizing: border-box;">Start Core Book</a>
                 </div>
 
-                <!-- TIER 2: Publisher Pass -->
+                <!-- TIER 3: Studio Bundle -->
                 <div class="pricing-card">
-                    <h3>Publisher Pass</h3>
-                    <p>Ongoing monthly conversion volume for mid-sized indie studios and publishers.</p>
-                    <div class="price">$299 <span>/mo</span></div>
+                    <h3>Campaign Studio Bundle</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Best for: Kickstarter creators fulfilling multi-book stretch goals.</p>
+                    <div class="price">$499</div>
+                    <div class="price-subtext">Up to 400 Pages (~$1.24/pg)</div>
                     <ul class="pricing-features">
-                        <li>Up to 250 rulebook pages monthly</li>
-                        <li>Full translation & routing</li>
-                        <li>Priority ingestion queue</li>
-                        <li>Zero-cost Redis FinOps caching</li>
+                        <li>Priority Processing Queue</li>
+                        <li>Multiple PDF Support</li>
+                        <li>Full VTT Module Packaging</li>
+                        <li>Dedicated QA pass</li>
                     </ul>
-                    <a href="mailto:caleb@delversgrimoire.com?subject=Publisher%20Pass%20Tier%20Inquiry" class="btn btn-outline" style="width: 100%; box-sizing: border-box;">Request Publisher Pass</a>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%; box-sizing: border-box;">Book Studio Bundle</a>
                 </div>
-
-                <!-- TIER 3: Enterprise Studio -->
+                
+                <!-- TIER 4: Enterprise Vault -->
                 <div class="pricing-card">
-                    <h3>Enterprise Studio</h3>
-                    <p>Full architectural integration for large-scale TTRPG catalogs and active crowdfunding.</p>
-                    <div class="price">$999 <span>/mo</span></div>
+                    <h3>Enterprise Backlist Vault</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Best for: Established studios digitizing years of backlist PDFs.</p>
+                    <div class="price">$999</div>
+                    <div class="price-subtext">Up to 1,000 Pages (~$0.99/pg)</div>
                     <ul class="pricing-features">
-                        <li>Unlimited catalog ingestion</li>
-                        <li>Custom Lean 4 verification rules</li>
-                        <li>Direct Azure VNet deployment</li>
-                        <li>Stateless UI architecture setup</li>
+                        <li>Entire Catalog Ingestion</li>
+                        <li>Custom Azure Processing Pipeline</li>
+                        <li>Formal Verification SLA</li>
+                        <li>Custom System Integration</li>
                     </ul>
-                    <a href="mailto:caleb@delversgrimoire.com?subject=Enterprise%20Studio%20Architecture%20Inquiry" class="btn btn-outline" style="width: 100%; box-sizing: border-box;">Contact Architecture Team</a>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%; box-sizing: border-box;">Contact Architecture</a>
                 </div>
 
+            </div>
+        </div>
+    </section>
+    
+    <!-- [SWARM NODE: Publisher FAQ] -->
+    <section id="faq" style="background-color: var(--bg-color);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Publisher FAQ</h2>
+                <p style="color: var(--text-muted);">Answers to your digital fulfillment architecture questions.</p>
+            </div>
+            
+            <div class="faq-grid">
+                
+                <div class="faq-item">
+                    <h3>"What if I have 4 or 5 books I want converted?"</h3>
+                    <p>The bigger the batch, the lower your cost per page. For a single 30-page zine, it’s a flat $79. For a 150-page core rulebook, it’s $229. But if you bring us a multi-book Kickstarter or 400 pages across a full adventure path, our Studio Bundle ($499) drops your rate down to ~$1.24 per page. You get 100% math-verified JSON across your entire campaign bundle while saving over $3,000 compared to hiring freelance VTT developers.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>"What if I have 20 years worth of legacy backlist PDFs?"</h3>
+                    <p>We handle full catalog ingestions. If you are sitting on decades of archived rulebooks, out-of-print supplements, or hundreds of legacy PDFs, our Enterprise Backlist Vault handles up to 1,000 pages for $999 (~$0.99/page). For giant archives exceeding 1,000 pages, our Azure multi-region async switchboard processes your catalog in parallel with custom schema mapping, dedicated staging servers, and a formal verification SLA. <a href="#contact" style="color: var(--accent);">Contact us directly</a> for a custom enterprise migration quote.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>"Why not just use ChatGPT or standard generative AI tools?"</h3>
+                    <p>Generative LLMs are probabilistic—they guess numbers, invent missing stats, hallucinate spell ranges, and destroy multi-column table layouts. VTT modules require 100% rigid data structures. GM-Copilot Studios uses OpenCV spatial vision to lock onto exact PDF bounding boxes and Lean 4 formal math verification to guarantee every HP, DC, and grid coordinate is mathematically valid. Zero hallucinations. Pure determinism.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>"How does the Free 1-Page Audit work?"</h3>
+                    <p>Upload your single hardest, messiest PDF page—multi-column text wraps, monster stat blocks, or dense item tables. Within 10 minutes, our pipeline generates a fully verified Foundry VTT JSON file and a spatial accuracy report. No credit card required. See the proof before you spend a single dime.</p>
+                </div>
+                
             </div>
         </div>
     </section>
@@ -437,7 +525,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Direct Secure Line</h2>
-                <p style="color: var(--text-muted);">Ping the Masterwork Engine Command Deck for custom integrations or architectural inquiries.</p>
+                <p style="color: var(--text-muted);">Ping the Masterwork Engine Command Deck for custom integrations, audits, or architectural inquiries.</p>
             </div>
             
             <form action="https://formspree.io/f/xpqvelwq" method="POST" style="background-color: var(--card-bg); padding: 30px; border-radius: 8px; max-width: 500px; margin: 0 auto; border: 1px solid var(--border-color); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
