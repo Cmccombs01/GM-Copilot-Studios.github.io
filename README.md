@@ -24,4 +24,4 @@ Core Rulebook & Campaign Pack ($199 Flat): Comprehensive ingestion for full sett
 
 Publisher Retainer Pass ($299/month): High-volume pipeline access for active studios (up to 250 pages/month) with priority queue routing, custom schema mapping, and dedicated switchboard capacity.
 
-That replaces the $99 sample barrier with the Free 1-Page Lead Magnet and clean flat fees ($49 / $199 / $299). Copy and paste that right into your documentation!
+
