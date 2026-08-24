@@ -167,8 +167,7 @@
             margin-bottom: 10px;
             display: inline-block;
             background: rgba(88, 166, 255, 0.1);
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 4px 8px; border-radius: 4px;
         }
 
         /*
@@ -191,8 +190,8 @@
          */
         .pricing {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
             margin-top: 50px;
         }
 
@@ -200,7 +199,7 @@
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 40px 30px;
+            padding: 30px 20px;
             text-align: left;
             display: flex;
             flex-direction: column;
@@ -213,7 +212,7 @@
         }
 
         .price {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: #ffffff;
             margin: 15px 0 5px;
@@ -238,7 +237,7 @@
             margin-bottom: 15px;
             padding-left: 24px;
             position: relative;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .pricing-features li::before {
@@ -427,10 +426,26 @@
             </div>
             <div class="pricing">
                 
-                <!-- TIER 1: Zine Pack -->
+                <!-- TIER 1: Starter Adventure Pass (NEW) -->
+                <div class="pricing-card">
+                    <h3>Starter Adventure</h3>
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Best for: Quick one-shots, monster rosters, demo adventures.</p>
+                    <div class="price">$49</div>
+                    <div class="price-subtext">Up to 15 Pages (~$3.26/pg)</div>
+                    <ul class="pricing-features">
+                        <li>24-Hour Turnaround</li>
+                        <li>Foundry VTT JSON export</li>
+                        <li>Roll20 JSON export</li>
+                        <li>Stat block verification</li>
+                    </ul>
+                    <!-- Add your Stripe link here later -->
+                    <a href="#" class="btn btn-outline" style="width: 100%; box-sizing: border-box;">Start One-Shot</a>
+                </div>
+
+                <!-- TIER 2: Zine Pack -->
                 <div class="pricing-card">
                     <h3>Indie Zine Pack</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Best for: Itch.io creators, short modules, pamphlets.</p>
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Best for: Itch.io creators, short modules, pamphlets.</p>
                     <div class="price">$79</div>
                     <div class="price-subtext">Up to 30 Pages (~$2.63/pg)</div>
                     <ul class="pricing-features">
@@ -439,14 +454,13 @@
                         <li>Roll20 JSON export</li>
                         <li>Stat block & item verification</li>
                     </ul>
-                    <!-- STRIPE PAYMENT LINK -->
                     <a href="https://buy.stripe.com/00w28r5oe6wN161h1b0kE01" class="btn btn-outline" style="width: 100%; box-sizing: border-box;">Start Zine Project</a>
                 </div>
 
-                <!-- TIER 2: Core Rulebook -->
+                <!-- TIER 3: Core Rulebook -->
                 <div class="pricing-card popular">
-                    <h3>Core Rulebook Pack</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Best for: Standard setting guides, core systems, long adventures.</p>
+                    <h3>Core Rulebook</h3>
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Best for: Standard setting guides, core systems, long adventures.</p>
                     <div class="price">$229</div>
                     <div class="price-subtext">Up to 150 Pages (~$1.52/pg)</div>
                     <ul class="pricing-features">
@@ -455,14 +469,13 @@
                         <li>Full layout & table extraction</li>
                         <li>Automated action economies</li>
                     </ul>
-                    <!-- STRIPE PAYMENT LINK -->
                     <a href="https://buy.stripe.com/aFa00j9Euf3jdSN6mx0kE02" class="btn" style="width: 100%; box-sizing: border-box;">Start Core Book</a>
                 </div>
 
-                <!-- TIER 3: Studio Bundle -->
+                <!-- TIER 4: Studio Bundle -->
                 <div class="pricing-card">
-                    <h3>Campaign Studio Bundle</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Best for: Kickstarter creators fulfilling multi-book stretch goals.</p>
+                    <h3>Campaign Studio</h3>
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Best for: Kickstarter creators fulfilling multi-book stretch goals.</p>
                     <div class="price">$499</div>
                     <div class="price-subtext">Up to 400 Pages (~$1.24/pg)</div>
                     <ul class="pricing-features">
@@ -471,14 +484,13 @@
                         <li>Full VTT Module Packaging</li>
                         <li>Dedicated QA pass</li>
                     </ul>
-                    <!-- STRIPE PAYMENT LINK -->
                     <a href="https://buy.stripe.com/3cI9AT3g65sJ9Cx6mx0kE03" class="btn btn-outline" style="width: 100%; box-sizing: border-box;">Book Studio Bundle</a>
                 </div>
                 
-                <!-- TIER 4: Enterprise Vault -->
+                <!-- TIER 5: Enterprise Vault -->
                 <div class="pricing-card">
-                    <h3>Enterprise Backlist Vault</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Best for: Established studios digitizing years of backlist PDFs.</p>
+                    <h3>Enterprise Vault</h3>
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Best for: Established studios digitizing years of backlist PDFs.</p>
                     <div class="price">$999</div>
                     <div class="price-subtext">Up to 1,000 Pages (~$0.99/pg)</div>
                     <ul class="pricing-features">
@@ -487,7 +499,6 @@
                         <li>Formal Verification SLA</li>
                         <li>Custom System Integration</li>
                     </ul>
-                    <!-- STRIPE PAYMENT LINK -->
                     <a href="https://buy.stripe.com/3cIfZh17YcVb01X8uF0kE04" class="btn btn-outline" style="width: 100%; box-sizing: border-box;">Unlock Enterprise Vault</a>
                 </div>
 
@@ -505,6 +516,11 @@
             
             <div class="faq-grid">
                 
+                <div class="faq-item">
+                    <h3>"What if my game uses a totally unique, proprietary ruleset?"</h3>
+                    <p>If your game uses exploding dice, custom action economies, or entirely non-d20 mechanics, we run a <strong>Custom Schema Engineering Sprint</strong> (starting at $2,500). During this 30-day setup, our architects build bespoke Pydantic data models and Lean 4 math gates specifically for your game's mechanics, ensuring 100% accurate, zero-hallucination VTT output for your entire catalog.</p>
+                </div>
+
                 <div class="faq-item">
                     <h3>"What if I have 4 or 5 books I want converted?"</h3>
                     <p>The bigger the batch, the lower your cost per page. For a single 30-page zine, it’s a flat $79. For a 150-page core rulebook, it’s $229. But if you bring us a multi-book Kickstarter or 400 pages across a full adventure path, our Studio Bundle ($499) drops your rate down to ~$1.24 per page. You get 100% math-verified JSON across your entire campaign bundle while saving over $3,000 compared to hiring freelance VTT developers.</p>
